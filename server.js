@@ -41,7 +41,7 @@ app.post('/get_delivery_order', async (req, res) => {
                 let total_amount = a.total_price.total_amount
                 let msg = {
                     status: true,
-                    message: '🛒: Finally create your Customer"s order:' + '\n' + '==============='+ '\n' + '☎️ ' +phone + '\n' + '===============' + '\n' + '💵 ' + total_amount + '===============' + '\n' + 'Type 👇🏿' + '*[1]* To Confirm' + ' ' + '*[2]* To Edit' + ' ' + '*[3]* To Cancel' + '\n' + '*[m]* main menu'
+                    message: '🛒: Finally create your Customer"s order:' + '\n' + '==============='+ '\n' + '☎️ ' +phone + '\n' + '===============' + '\n' + '💵 ' + total_amount + '\n'+'===============' + '\n' + 'Type 👇🏿' + '*[1]* To Confirm' + ' ' + '*[2]* To Edit' + ' ' + '*[3]* To Cancel' + '\n' + '*[m]* main menu'
                 }
                 res.json(msg)
             }
