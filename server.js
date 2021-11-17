@@ -5,13 +5,14 @@ const axios = require('axios')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
-    res.send('Welcome')
+app.post('/', (req, res) => {
+    let {message} = req.body
+    console.log(message.length);
 })
 
 let arr = ''
 
-let welcome = {message : 'Welcome to Delivery Service' + ' ' + 'Kindly Enter the Order ID'}
+let welcome = {message : 'Welcome to Delivery Service 😎' + '\n' + 'This helps you track your active deliveries 🛒'+ '\n' + 'Kindly Enter the Order ID 😊'}
 
 app.post('/get_delivery_order', async (req, res) => {
     try {
@@ -28,10 +29,13 @@ app.post('/get_delivery_order', async (req, res) => {
                 }
                 res.send(resp)
         }
+        if(message =='2'){
+            res.send({message: 'Edit'})
+        }
         if (message == 'delivery') {
             res.status(200).json(welcome)
         }
-        if(message !=="delivery" && message !== "1"){
+        if(message.length === 15){
             let order_id = message
              arr = message
             let response = await axios.post('https://sellbackend.creditclan.com/parent/index.php/globalrequest/get_delivery_order', { order_id })
@@ -48,6 +52,9 @@ app.post('/get_delivery_order', async (req, res) => {
             else{
                 res.send(response.data)
             }
+        }
+        if(message !== "delivery" && message !=='1' && message !== '2' && message.length !== 15){
+            res.send({message: 'Wrong input ☹️, Please check and Try again'})
         }
     } catch (error) {
         res.status(500).json(error)
